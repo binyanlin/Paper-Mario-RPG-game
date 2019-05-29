@@ -76,7 +76,7 @@
     let enemyHP;
     
     // const attackButton = "<button type="button" class="btn bg-secondary text-light">Attack!</button>"
-    const attackButton = `<button type="button" class="btn text-light bg-secondary attackB" id="attackB">Attack!</button>`
+    var attackButton = `<button type="button" class="btn text-light bg-secondary attackB" id="attackB">Attack!</button>`
 
     charPick = false;
     enemyPick = false;
@@ -120,41 +120,39 @@
     };
     // //gamestart
     // // onclick function for char selection, moves selected char to main character, moves other 3 to enemy
-    // $(".char").on("click", function() {
-    //     // if no character in "your character" division
-    //     if (charPick === false && enemyPick === false) {
-    //         $(this).removeClass("char").addClass("mainChar");
-    //         // moves chosen char to main char, moves others to enemy char
-    //         $(".yourCharacter").append($(this));
-    //         $(".enemyField").append($(".char"));
-    //         // assign HP to playerHp, assign stats from object
-    //         $(this).removeClass("charHp").addClass("playerHp");
-    //         playerHp = $(".playerHp").text();
-    //         playerHp = parseInt(playerHp.replace(/[^\d]/g, ''));
-    //         playerId = $(this).attr("id");
-    //         console.log(playerId);
-    //         // display next step
-    //         $(".comment").text("Select your first opponent")
-    //         charPick = true;
-    //     // moves enemy to defender and assigns enemyHp
-    //     } else if (charPick === true && enemyPick === false && $(this).hasClass("char")) {  //note: last "and" is to remove edge case of putting main character into defender category
-    //         $(this).removeClass("char").addClass("currentEnemy");
-    //         $(".defender").append($(".currentEnemy"));
-    //         // assign defender's hp as enemyHP
-    //         $(this).removeClass("charHp").addClass("enemyHp");
-    //         enemyHp = $(".enemyHp").text();
-    //         enemyHp = parseInt(enemyHp.replace(/[^\d]/g, ''));
-    //         enemyId = $(this).attr("id");
-    //         console.log(enemyId);
-    //         // allows for attack to begin
-    //         $(".comment").text("Begin Fight!");
-    //         $(".attackButtonPlace").append(attackButton);
-    //         damageAssigner();
-    //         enemyPick = true;
-    //     // } else if (charPick === true && enemyPick === false) {
-    //     //     $(".char").off("click");
-    //     };
-    // }); 
+    $(".char").on("click", function() {
+        // if no character in "your character" division
+        if (charPick === false && enemyPick === false) {
+            $(this).removeClass("char").addClass("mainChar");
+            // moves chosen char to main char, moves others to enemy char
+            $(".yourCharacter").append($(this));
+            $(".enemyField").append($(".char"));
+            // assign HP to playerHp, assign stats from object
+            $(this).removeClass("charHp").addClass("playerHp");
+            playerHp = $(".playerHp").text();
+            playerHp = parseInt(playerHp.replace(/[^\d]/g, ''));
+            playerId = $(this).attr("id");
+            // display next step
+            $(".comment").text("Select your first opponent")
+            charPick = true;
+        // moves enemy to defender and assigns enemyHp
+        } else if (charPick === true && enemyPick === false && $(this).hasClass("char")) {  //note: last "and" is to remove edge case of putting main character into defender category
+            $(this).removeClass("char").addClass("currentEnemy");
+            $(".defender").append($(".currentEnemy"));
+            // assign defender's hp as enemyHP
+            $(this).removeClass("charHp").addClass("enemyHp");
+            enemyHp = $(".enemyHp").text();
+            enemyHp = parseInt(enemyHp.replace(/[^\d]/g, ''));
+            enemyId = $(this).attr("id");
+            // allows for attack to begin
+            $(".comment").text("Begin Fight!");
+            damageAssigner();
+            enemyPick = true;
+            $(".attackButtonPlace").append(attackButton);
+        // } else if (charPick === true && enemyPick === false) {
+        //     $(".char").off("click");
+        };
+    }); 
 
 
     // TestVariables
@@ -162,15 +160,15 @@
     baseAttackPower = 2;
     attackGrowth = 3;
     counterAttack = 4;
+    enemyHp = 60;
+    playerHp = 90;
 
     // once attack button has appeared:
     $(".attackB").on("click", function() {
-        // var attackDamage = baseAttackPower + attackCounter*attackGrowth;
-        alert("hi");
-        // console.log(attackDamage);
-        // console.log(enemyHp);
-        // enemyHp = enemyHp - attackDamage;
-        // $(".enemyHp").text(enemyHp);
+        var attackDamage = baseAttackPower + attackCounter*attackGrowth;
+        enemyHp = enemyHp - attackDamage;
+        $(".enemyHp").find(".charHp").text(enemyHp);
+        attackCounter++;
         // enemyHpCheck();
         // textUpdate();
         //     if (isEnemy()) {
