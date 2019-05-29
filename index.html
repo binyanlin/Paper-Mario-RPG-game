@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RPG Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+</head>
+<body>
+
+    <div class="title">
+        <h1 class="text-center">Paper Mario RPG</h1>
+    </div>
+
+    <div class="startingArea">
+        <div class="row">
+            <button type="button" class="char char1 col-sm btn">
+                    <img src="./assets/images/goomba.png"/>
+                    <p>HP: <span>90</span></p>
+            </button>
+            <button type="button" class="char char2 col-sm btn">
+                    <img src="./assets/images/paratroopa.png"/>
+                    <p>HP: <span>90</span></p>
+            </button>
+            <button type="button" class="char char3 col-sm btn">
+                    <img src="./assets/images/bob-omb.png"/>
+                    <p>HP: <span>90</span></p>
+            </button>    
+            <button type="button" class="char char4 col-sm btn">
+                    <img src='./assets/images/piranha.png'/>
+                    <p>HP: <span>90</span></p>
+            </button>
+        </div>
+    </div>
+
+    <!-- for you win, select your character, etc  -->
+    <div><h1 class="comment text-center">Select Character to Start!</h1></div>
+
+    
+    <div class="row">
+        <div class="col-sm ml-3">
+            <h2>Your Character</h2>
+            <div class="yourCharacter bg-success rounded-circle"></div>
+        </div>
+        <div class="col-sm">
+            <h2>Defender</h2>
+            <div class="defender bg-danger rounded-circle"></div>
+        </div>
+        <div class="col-sm">
+            <h2>Enemies Left</h2>
+            <div class="enemyField bg-warning rounded-circle"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1 attackButtonPlace">
+        </div>
+        <div class="col-sm-6 attackLogPlace"></div>
+        <div class="col-sm-4 spacer"></div>
+    </div>
+
+    <script>
+    //variables
+
+    //hp of the 4 characters
+    let hpA = 90;
+    let hpB = 60;
+    let hpC = 120;
+    let hpD = 75;
+
+    let playerHp;
+    let enemyHP;
+    
+    // const attackButton = "<button type="button" class="btn bg-secondary text-light">Attack!</button>"
+    const attackButton = "<button>Attack!</button>"
+
+    charPick = false;
+    enemyPick = false;
+    //gamestart
+    // onclick function for char selection, moves selected char to main character, moves other 3 to enemy
+    $(".char").on("click", function() {
+        // if no character in "your character" division
+        // move selected character into "your character"
+        if (charPick === false && enemyPick === false) {
+            $(this).removeClass("char").addClass("mainChar");
+            // $(this).detach();
+            $(".yourCharacter").append($(this));
+            $(".enemyField").append($(".char"));
+            $(".comment").text("Select your first opponent")
+            charPick = true;
+        } else if (charPick === true && enemyPick === false && $(this).hasClass("char")) {  //note: last "and" is to remove edge case of putting main character into defender category
+            $(this).removeClass("char").addClass("currentEnemy");
+            // $(this).detach();
+            $(".defender").append($(".currentEnemy"));
+            $(".comment").text("Begin Fight!");
+            $(".attackButtonPlace").append(attackButton)
+            .addClass("btn text-light attack");
+            enemyPick = true;
+        }
+    }); 
+
+    // each turn:
+    let baseAttackPower = {A: 8, B: 14, C: 2, D: 6};
+    let attackGrowth = {A: 6, B: 14, C: 4, D: 10};
+    let counterAttack = {A: 8, B: 10, C: 5, D: 8};
+    let attackCounter = 0;
+    // need some way to specify base attack power and attack power values of each key 
+    let attackDamage = baseAttackPower + attackCounter*attackGrowth;
+
+    // once attack button has appeared:
+    $(".attack").on("click", function() {
+    //     enemyHp -= attackDamage;
+    //     enemyHpCheck();
+    //     textUpdate();
+    //         if (isEnemy()) {
+    //             playerHp -= counterAttack;
+    //             gameOverCheck();
+    //             textUpdate();
+    //         } else {
+    //             // assign a new enemy character
+    //             // if no enemy chars are left then display you win
+    //         }
+    });
+
+
+   
+
+    // variables for checking state of the game
+    // gameOverCheck: checks if your character hp = 0, if so displays game over and restart button
+    // isEnemy: checks if there is an enemy inside the enemy div, otherwise displays "no target"
+    // enemyHPCheck: checks if enemy HP is 0, removes them from enemy slot if so
+    // var textUpdate for updating all the text
+
+
+
+    // if (gameStart) {
+    //     // display the attack button
+    // } else {
+    //     // hide attack button
+    // }
+    
+    // // on "Attack" click, attackCounter++,  
+    // 
+            
+    // });
+    
+    
+    
+    
+    </script>
+
+
+</body>
+</html>
