@@ -155,28 +155,57 @@
     }); 
 
 
-    // TestVariables
-    // $(".attackButtonPlace").append(attackButton);
-    baseAttackPower = 2;
-    attackGrowth = 3;
-    counterAttack = 4;
-    enemyHp = 60;
-    playerHp = 90;
+    // // TestVariables
+    // // $(".attackButtonPlace").append(attackButton);
+    // baseAttackPower = 2;
+    // attackGrowth = 3;
+    // counterAttack = 4;
+    // enemyHp = 60;
+    // playerHp = 90;
+    const enemyHpCheck = function() {
+        if (enemyHp > 0) {
+            $(".enemyHp").find(".charHp").text(enemyHp);
+            playerHp -= counterAttack;
+        } else if (enemyHp <= 0) {
+            $(".enemyHp").find(".charHp").text("0");
+            $(".comment").text("Enemy fainted!")
+            enemyPick = false;
+            setTimeout(function() { 
+                $(".enemyHp").remove();
+            }, 2000);
+            setTimeout(function() { 
+                $("attackB").remove();
+            }, 2000);
+            setTimeout(function() { 
+                $(".comment").text("Select New Opponent");
+            }, 3000);
+        };
+    };
+
+    const playerHpCheck = function() {
+        if (playerHp > 0) {
+            $(".playerHp").find(".charHp").text(playerHp);
+        } else if (playerHp <= 0) {
+            $(".enemyHp").find(".charHp").text("0");
+            setTimeout(function() { 
+                $(".comment").text("You Lose!");
+            }, 2000);
+            // some sort of retry button
+        };
+    };
 
     // once attack button has appeared:
-    // $(".attackB").on("click", function() {
     $(document).on("click", ".attackB", function() {
-        if (enemyHp > 0) {
-            var attackDamage = baseAttackPower + attackCounter*attackGrowth;
-            enemyHp = enemyHp - attackDamage;
-            $(".enemyHp").find(".charHp").text(enemyHp);
-            attackCounter++;
-        } else if (enemyHp <= 0) {
-            $(".enemyHp").remove();
-            $("attackB").remove();
-            enemyPick = false;
-            $(".comment").text("Select New Opponent");
-        }
+            let attackDamage = baseAttackPower + attackCounter*attackGrowth;
+            if (enemyHp > 0) {
+                enemyHp -= attackDamage;
+                enemyHpCheck();
+                attackCounter++;
+                playerHpCheck();
+            };
+        });
+    
+   
         // enemyHpCheck();
         // textUpdate();
         //     if (isEnemy()) {
@@ -186,7 +215,6 @@
         //     } else {
                 // assign a new enemy character
                 // if no enemy chars are left then display you win
-            });
     // });
 
 
