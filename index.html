@@ -91,12 +91,14 @@
     let attackCounter = 0;
 
     // each turn:                     
-    let baseAttackPowerList = {A: 8, B: 14, C: 2, D: 6};
-    let attackGrowthList = {A: 6, B: 14, C: 4, D: 10};
-    let counterAttackList = {A: 15, B: 20, C: 15, D: 18};
+    let baseAttackPowerList = {A: 8, B: 14, C: 4, D: 10};
+    let attackGrowthList = {A: 8, B: 14, C: 4, D: 10};
+    let counterAttackList = {A: 13, B: 19, C: 8, D: 15};
+    
     // object of objects:
-    let charData = {baseAttackPowerList, attackGrowthList, counterAttackList}
+    // let charData = {baseAttackPowerList, attackGrowthList, counterAttackList}
 
+    
     const damageAssigner = function() {
         if (playerId == "A") {
             baseAttackPower = baseAttackPowerList.A;
@@ -121,12 +123,11 @@
         } else if (enemyId == "D") {
             counterAttack = counterAttackList.D;
         };
-        // console.log("baseAttackPower: ", baseAttackPower, "attackGrowth: ", attackGrowth, "counterAttack: ", counterAttack);
     };
+
     // gamestart
 
-
-    // onclick function for char selections
+    // onclick function for character selections
     $(".char").on("click", function() {
         // if no character in "your character" division
         if (charPick === false && enemyPick === false) {
@@ -152,6 +153,7 @@
             enemyHp = parseInt(enemyHp.replace(/[^\d]/g, ''));
             enemyId = $(this).attr("id");
         // allows for attack to begin
+            $(".attackLogPlace").text("");
             $(".comment").text("Begin Fight!");
             damageAssigner();
             enemyPick = true;
@@ -159,7 +161,7 @@
         };
     }); 
 
-
+    //removes enemy if hp reaches 0, allows for picking new enemy
     const enemyHpCheck = function() {
         if (enemyHp > 0) {
             $(".enemyHp").find(".charHp").text(enemyHp);
@@ -177,24 +179,25 @@
             gameEnd();
         };
     };
-
+    //checks game over condition by defeating all enemies
     const gameEnd = function() {
         if (enemyKillCount < 3) {
             setTimeout(function() { 
                 $(".comment").text("Select New Opponent");
-                enemyPick = false;
                 $(".attackLogPlace").text("Select New Opponent");
-            }, 3000);
+                enemyPick = false;
+            }, 2500);
         } else if (enemyKillCount >= 3) {
             setTimeout(function() { 
                 $(".comment").text("You Win!");
                 enemyPick = false;
                 $(".attackLogPlace").text("You defeated everyone! Congrats!");
-            }, 3000);
-            $(".retryButtonPlace").html(retryButton);
+                $(".attackLogPlace").append("<p>Press the Retry Button to play again<p>");
+                $(".retryButtonPlace").html(retryButton);
+            }, 3000);  
         };
     };
-
+    //checks game over condition by player death
     const playerHpCheck = function() {
         if (playerHp > 0) {
             $(".playerHp").find(".charHp").text(playerHp);
@@ -208,7 +211,6 @@
                 $(".attackLogPlace").append("<p>Press the Retry Button to try again<p>");
                 $(".retryButtonPlace").html(retryButton);
             }, 3000);
-            
         };
     };
 
@@ -225,17 +227,9 @@
     });
     
     // Retry Button
-    // $(document).on("click", ".retryButton", function() {
-        // 
-        // 
-        // 
-        // 
-        // 
-    
-
-    
-    
-    
+    $(document).on("click", ".retryB", function() {
+        location.reload(true);
+    });
     
     </script>
 
