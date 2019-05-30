@@ -18,10 +18,11 @@ body {
     border: none;
     width: 150px;
     height: 150px;
-    position: relative;
-    bottom: 170px;
+    position: fixed;
+    bottom: 50px;
   }
 
-#attackB {
-
+.mx-auto {
+    width: auto;
+    display: block;
 }
