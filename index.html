@@ -57,8 +57,7 @@
 
     <div class="row">
         <div class="col-sm-1"></div>
-        <div class="col-sm-1 attackButtonPlace">
-        </div>
+        <div class="col-sm-1 attackButtonPlace"></div>
         <div class="col-sm-6 text-center attackLogPlace"></div>
         <div class="col-sm-4 spacer"></div>
     </div>
@@ -74,8 +73,9 @@
 
     let playerHp;
     let enemyHP;
-    
-    // const attackButton = "<button type="button" class="btn bg-secondary text-light">Attack!</button>"
+    let enemyKillCount = 0;
+
+    //attackButton
     var attackButton = `<button type="button" class="text-light rounded-circle attackB" id="attackB"><h5>Attack!</h5></button>`
 
     charPick = false;
@@ -116,41 +116,41 @@
         } else if (enemyId == "D") {
             counterAttack = counterAttackList.D;
         };
-        console.log("baseAttackPower: ", baseAttackPower, "attackGrowth: ", attackGrowth, "counterAttack: ", counterAttack);
+        // console.log("baseAttackPower: ", baseAttackPower, "attackGrowth: ", attackGrowth, "counterAttack: ", counterAttack);
     };
-    // //gamestart
-    // // onclick function for char selection, moves selected char to main character, moves other 3 to enemy
+    // gamestart
+
+
+    // onclick function for char selections
     $(".char").on("click", function() {
         // if no character in "your character" division
         if (charPick === false && enemyPick === false) {
             $(this).removeClass("char").addClass("mainChar");
-            // moves chosen char to main char, moves others to enemy char
+        // moves chosen char to main char, moves others to enemy char
             $(".yourCharacter").append($(this));
             $(".enemyField").append($(".char"));
-            // assign HP to playerHp, assign stats from object
+        // assign HP to playerHp, assign stats from object
             $(this).removeClass("charHp").addClass("playerHp");
             playerHp = $(".playerHp").text();
             playerHp = parseInt(playerHp.replace(/[^\d]/g, ''));
             playerId = $(this).attr("id");
-            // display next step
+        // display next step
             $(".comment").text("Select your first opponent")
             charPick = true;
         // moves enemy to defender and assigns enemyHp
         } else if (charPick === true && enemyPick === false && $(this).hasClass("char")) {  //note: last "and" is to remove edge case of putting main character into defender category
             $(this).removeClass("char").addClass("currentEnemy");
             $(".defender").append($(".currentEnemy"));
-            // assign defender's hp as enemyHP
+        // assign defender's hp as enemyHP
             $(this).removeClass("charHp").addClass("enemyHp");
             enemyHp = $(".enemyHp").text();
             enemyHp = parseInt(enemyHp.replace(/[^\d]/g, ''));
             enemyId = $(this).attr("id");
-            // allows for attack to begin
+        // allows for attack to begin
             $(".comment").text("Begin Fight!");
             damageAssigner();
             enemyPick = true;
             $(".attackButtonPlace").html(attackButton);
-        // } else if (charPick === true && enemyPick === false) {
-        //     $(".char").off("click");
         };
     }); 
 
@@ -164,14 +164,27 @@
             $(".enemyHp").find(".charHp").text("0");
             $(".comment").text("Enemy fainted!")
             $(".attackLogPlace").append(`<p>Defender fainted!</p>`);
+            enemyKillCount++;
             setTimeout(function() { 
                 $(".enemyHp").remove();
                 $("attackB").remove();
             }, 2000);
+            gameEnd();
+        };
+    };
+
+    const gameEnd = function() {
+        if (enemyKillCount < 3) {
             setTimeout(function() { 
                 $(".comment").text("Select New Opponent");
                 enemyPick = false;
                 $(".attackLogPlace").text("Select New Opponent");
+            }, 3000);
+        } else if (enemyKillCount >= 3) {
+            setTimeout(function() { 
+                $(".comment").text("You Win!");
+                enemyPick = false;
+                $(".attackLogPlace").text("You defeated everyone!");
             }, 3000);
         };
     };
@@ -184,43 +197,30 @@
             setTimeout(function() { 
                 $(".comment").text("You Lose!");
             }, 2000);
-            // some sort of retry button
+            // Append a retry button
         };
     };
 
-    // once attack button has appeared:
+    // Attack button action sequence 
     $(document).on("click", ".attackB", function() {
-            let attackDamage = baseAttackPower + attackCounter*attackGrowth;
-            if (enemyHp > 0) {
-                enemyHp -= attackDamage;
-                $(".attackLogPlace").text("You deal " + attackDamage + " damage! ");
-                enemyHpCheck();
-                attackCounter++;
-                
-                playerHpCheck();
-            };
-        });
+        let attackDamage = baseAttackPower + attackCounter*attackGrowth;
+        if (enemyHp > 0) {
+            enemyHp -= attackDamage;
+            $(".attackLogPlace").text("You deal " + attackDamage + " damage! ");
+            enemyHpCheck();
+            attackCounter++;
+            playerHpCheck();
+        };
+    });
     
-   
-        // enemyHpCheck();
-        // textUpdate();
-        //     if (isEnemy()) {
-        //         playerHp -= counterAttack;
-        //         gameOverCheck();
-        //         textUpdate();
-        //     } else {
-                // assign a new enemy character
-                // if no enemy chars are left then display you win
-    // });
-
-
-   
-
-    // variables for checking state of the game
-    // gameOverCheck: checks if your character hp = 0, if so displays game over and restart button
-    // isEnemy: checks if there is an enemy inside the enemy div, otherwise displays "no target"
-    // enemyHPCheck: checks if enemy HP is 0, removes them from enemy slot if so
-    // var textUpdate for updating all the text
+    // Retry Button
+    // $(document).on("click", ".retryButton", function() {
+        // 
+        // 
+        // 
+        // 
+        // 
+    
 
     
     
