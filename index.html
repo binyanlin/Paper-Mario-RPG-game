@@ -148,7 +148,7 @@
             $(".comment").text("Begin Fight!");
             damageAssigner();
             enemyPick = true;
-            $(".attackButtonPlace").append(attackButton);
+            $(".attackButtonPlace").html(attackButton);
         // } else if (charPick === true && enemyPick === false) {
         //     $(".char").off("click");
         };
@@ -156,7 +156,7 @@
 
 
     // TestVariables
-    $(".attackButtonPlace").append(attackButton);
+    // $(".attackButtonPlace").append(attackButton);
     baseAttackPower = 2;
     attackGrowth = 3;
     counterAttack = 4;
@@ -164,11 +164,19 @@
     playerHp = 90;
 
     // once attack button has appeared:
-    $(".attackB").on("click", function() {
-        var attackDamage = baseAttackPower + attackCounter*attackGrowth;
-        enemyHp = enemyHp - attackDamage;
-        $(".enemyHp").find(".charHp").text(enemyHp);
-        attackCounter++;
+    // $(".attackB").on("click", function() {
+    $(document).on("click", ".attackB", function() {
+        if (enemyHp > 0) {
+            var attackDamage = baseAttackPower + attackCounter*attackGrowth;
+            enemyHp = enemyHp - attackDamage;
+            $(".enemyHp").find(".charHp").text(enemyHp);
+            attackCounter++;
+        } else if (enemyHp <= 0) {
+            $(".enemyHp").remove();
+            $("attackB").remove();
+            enemyPick = false;
+            $(".comment").text("Select New Opponent");
+        }
         // enemyHpCheck();
         // textUpdate();
         //     if (isEnemy()) {
