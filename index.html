@@ -9,28 +9,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <link rel="stylesheet" href="./assets/css/style.css"/>
 </head>
-<body>
+<body class="text-light">
 
     <div class="title">
-        <h1 class="text-center">Paper Mario RPG</h1>
+        <img class="text-center" src="./assets/images/title2.png"/>
     </div>
 
     <div class="startingArea">
         <div class="row">
-            <button type="button" class="char char1 col-sm btn" id="A">
+            <button type="button" class="char char1 col-sm btn text-light" id="A">
                     <img src="./assets/images/goomba.png"/>
                     <p>HP: <span class="charHp" >90</span></p>
             </button>
-            <button type="button" class="char char2 col-sm btn B" id="B">
+            <button type="button" class="char char2 col-sm btn text-light" id="B">
                     <img src="./assets/images/bob-omb.png"/>
                     <p>HP: <span class="charHp">60</span></p>
             </button>
-            <button type="button" class="char char3 col-sm btn C" id="C">
+            <button type="button" class="char char3 col-sm btn text-light" id="C">
                     <img src="./assets/images/paratroopa.png"/>
                     <p>HP: <span class="charHp">120</span></p>
             </button>    
-            <button type="button" class="char char4 col-sm btn D" id="D">
-                    <img src="./assets/images/piranha.png"/>
+            <button type="button" class="char char4 col-sm btn text-light" id="D">
+                    <img src="./assets/images/spiny2.png"/>
                     <p>HP: <span class="charHp">75</span></p>
             </button>
         </div>
@@ -46,7 +46,7 @@
             <div class="yourCharacter bg-success rounded-circle"></div>
         </div>
         <div class="col-sm">
-            <h2>Defender</h2>
+            <h2 class="text-center">Defender</h2>
             <div class="defender bg-danger rounded-circle"></div>
         </div>
         <div class="col-sm">
@@ -76,7 +76,7 @@
     let enemyHP;
     
     // const attackButton = "<button type="button" class="btn bg-secondary text-light">Attack!</button>"
-    var attackButton = `<button type="button" class="btn text-light bg-secondary attackB" id="attackB">Attack!</button>`
+    var attackButton = `<button type="button" class="text-light rounded-circle attackB" id="attackB"><h5>Attack!</h5></button>`
 
     charPick = false;
     enemyPick = false;
