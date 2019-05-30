@@ -19,8 +19,14 @@ body {
     width: 150px;
     height: 150px;
     position: fixed;
-    bottom: 50px;
+    bottom: 40px;
   }
+
+.attackLogPlace {
+    position: absolute;
+    left: 200px;
+    bottom: 100px;
+}
 
 .mx-auto {
     width: auto;

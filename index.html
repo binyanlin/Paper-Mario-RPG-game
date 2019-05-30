@@ -59,7 +59,7 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-1 attackButtonPlace">
         </div>
-        <div class="col-sm-6 attackLogPlace"></div>
+        <div class="col-sm-6 text-center attackLogPlace"></div>
         <div class="col-sm-4 spacer"></div>
     </div>
 
@@ -159,9 +159,11 @@
         if (enemyHp > 0) {
             $(".enemyHp").find(".charHp").text(enemyHp);
             playerHp -= counterAttack;
+            $(".attackLogPlace").append(`<p>Defender deals ${counterAttack} damage.</p>`);
         } else if (enemyHp <= 0) {
             $(".enemyHp").find(".charHp").text("0");
             $(".comment").text("Enemy fainted!")
+            $(".attackLogPlace").append(`<p>Defender fainted!</p>`);
             setTimeout(function() { 
                 $(".enemyHp").remove();
                 $("attackB").remove();
@@ -169,6 +171,7 @@
             setTimeout(function() { 
                 $(".comment").text("Select New Opponent");
                 enemyPick = false;
+                $(".attackLogPlace").text("Select New Opponent");
             }, 3000);
         };
     };
@@ -190,8 +193,10 @@
             let attackDamage = baseAttackPower + attackCounter*attackGrowth;
             if (enemyHp > 0) {
                 enemyHp -= attackDamage;
+                $(".attackLogPlace").text("You deal " + attackDamage + " damage! ");
                 enemyHpCheck();
                 attackCounter++;
+                
                 playerHpCheck();
             };
         });
