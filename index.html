@@ -169,15 +169,13 @@
         } else if (enemyHp <= 0) {
             $(".enemyHp").find(".charHp").text("0");
             $(".comment").text("Enemy fainted!")
-            enemyPick = false;
             setTimeout(function() { 
                 $(".enemyHp").remove();
-            }, 2000);
-            setTimeout(function() { 
                 $("attackB").remove();
             }, 2000);
             setTimeout(function() { 
                 $(".comment").text("Select New Opponent");
+                enemyPick = false;
             }, 3000);
         };
     };
