@@ -14,16 +14,30 @@ body {
     background-image: url("./../images/attackbutton3.jpg");
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    /* put the height and width of your image here */
     border: none;
     width: 150px;
     height: 150px;
     position: fixed;
-    bottom: 40px;
+    bottom: 30px;
+    left: 20px;
   }
+
+.retryB {
+    background-image: url("./../images/retryflag.png");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: none;
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+}
 
 .attackLogPlace {
     position: absolute;
+    /* display: block;
+    width: auto; */
     left: 200px;
     bottom: 100px;
     font-size: 20px;

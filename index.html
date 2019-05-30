@@ -42,7 +42,7 @@
     
     <div class="row">
         <div class="col-sm ml-3">
-            <h2>Your Character</h2>
+            <h2 class="text-center">Your Character</h2>
             <div class="yourCharacter bg-success rounded-circle"></div>
         </div>
         <div class="col-sm">
@@ -50,7 +50,7 @@
             <div class="defender bg-danger rounded-circle"></div>
         </div>
         <div class="col-sm">
-            <h2>Enemies Left</h2>
+            <h2 class="text-center">Enemies Left</h2>
             <div class="enemyField bg-warning rounded-circle"></div>
         </div>
     </div>
@@ -59,7 +59,9 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-1 attackButtonPlace"></div>
         <div class="col-sm-6 text-center attackLogPlace"></div>
-        <div class="col-sm-4 spacer"></div>
+        <div class="col-sm-2 spacer"></div>
+        <div class="col-sm-1 retryButtonPlace"></div>
+        <div class="col-sm-1"></div>
     </div>
 
     <script>
@@ -76,7 +78,10 @@
     let enemyKillCount = 0;
 
     //attackButton
-    var attackButton = `<button type="button" class="text-light rounded-circle attackB" id="attackB"><h5>Attack!</h5></button>`
+    var attackButton = `<button type="button" class="text-light rounded-circle attackB"><h5>Attack!</h5></button>`
+
+    //retryButton
+    var retryButton = `<button type="button" class="text-light rounded-circle retryB"><h5>Retry</h5></button>`
 
     charPick = false;
     enemyPick = false;
@@ -88,7 +93,7 @@
     // each turn:                     
     let baseAttackPowerList = {A: 8, B: 14, C: 2, D: 6};
     let attackGrowthList = {A: 6, B: 14, C: 4, D: 10};
-    let counterAttackList = {A: 8, B: 10, C: 5, D: 8};
+    let counterAttackList = {A: 15, B: 20, C: 15, D: 18};
     // object of objects:
     let charData = {baseAttackPowerList, attackGrowthList, counterAttackList}
 
@@ -184,8 +189,9 @@
             setTimeout(function() { 
                 $(".comment").text("You Win!");
                 enemyPick = false;
-                $(".attackLogPlace").text("You defeated everyone!");
+                $(".attackLogPlace").text("You defeated everyone! Congrats!");
             }, 3000);
+            $(".retryButtonPlace").html(retryButton);
         };
     };
 
@@ -193,11 +199,16 @@
         if (playerHp > 0) {
             $(".playerHp").find(".charHp").text(playerHp);
         } else if (playerHp <= 0) {
-            $(".enemyHp").find(".charHp").text("0");
+            $(".playerHp").find(".charHp").text("0");
             setTimeout(function() { 
                 $(".comment").text("You Lose!");
+                $(".attackLogPlace").text("You Lost!");
             }, 2000);
-            // Append a retry button
+            setTimeout(function() { 
+                $(".attackLogPlace").append("<p>Press the Retry Button to try again<p>");
+                $(".retryButtonPlace").html(retryButton);
+            }, 3000);
+            
         };
     };
 
