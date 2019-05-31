@@ -27,7 +27,7 @@ let attackCounter = 0;
 // each turn:                     
 let baseAttackPowerList = { A: 7, B: 13, C: 4, D: 9 };
 let attackGrowthList = { A: 7, B: 13, C: 4, D: 9 };
-let counterAttackList = { A: 13, B: 19, C: 8, D: 15 };
+let counterAttackList = { A: 13, B: 18, C: 8, D: 15 };
 
 // object of objects:
 // let charData = {baseAttackPowerList, attackGrowthList, counterAttackList}
