@@ -66,6 +66,7 @@ $(".char").on("click", function () {
     // if no character in "your character" division
     if (charPick === false && enemyPick === false) {
         $(this).removeClass("char").addClass("mainChar");
+        $(this).find("img").addClass("flip");
         // moves chosen char to main char, moves others to enemy char
         $(".yourCharacter").append($(this));
         $(".enemyField").append($(".char"));
